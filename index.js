@@ -1,4 +1,4 @@
-const fns = require("./api")
+const fns = require("./handlers")
 const cors = require('./lib/cors')
 const models = require("./models");
 
