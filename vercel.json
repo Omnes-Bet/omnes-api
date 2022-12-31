@@ -7,7 +7,7 @@
         "use": "@vercel/node"
     },
     "routes": [{
-        "src": "handlers/index.js",
-        "destiny": "index.js"
+        "source": "handlers/index.js",
+        "destination": "index.js"
     }]
 }
