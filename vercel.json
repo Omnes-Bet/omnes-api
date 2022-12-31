@@ -1,12 +1,10 @@
 {
+    "version": 2,
     "name": "omnes-api",
-    "version": 1,
-    "public": true,
-    "build": {
-        "use": "@vercel/node"
-    },
-    "routes": [{
-        "source": "handlers/index.js",
-        "destination": "index.js"
-    }]
-}
+    "builds": [
+       { "src": "index.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+       { "src": "/(.*)", "dest": "/index.js" }
+    ]
+ }
