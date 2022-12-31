@@ -5,7 +5,7 @@ const glob = require("glob");
 const fns = [];
 
 glob
-  .sync("./handlers/**/*.js")
+  .sync("./api/**/*.js")
   .forEach((file) => fns.push(require(path.resolve(file))));
 
 module.exports = fns;
