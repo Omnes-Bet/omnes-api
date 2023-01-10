@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
-const { Stripe } = require("Stripe");
+const { Stripe } = require("stripe");
 /**
  * @param {*} event
  * @param {*} models
