@@ -1,5 +1,4 @@
-const { exec } = require("child_process");
-const { promisify } = require("util");
+const axios = require("axios")
 /**
  * @param {*} event
  * @param {*} models
@@ -8,15 +7,11 @@ const { promisify } = require("util");
 
 module.exports.handler = async function (event, models) {
 
-    const execPromise = promisify(exec);
-
-    const pythonReturn = await execPromise("python3 app.py");
-  
-    const result = JSON.parse(pythonReturn.stdout)
+    const pythonReturn = await axios.get("https://omnes-python-api.herokuapp.com/getSurebets");
   
       return {
         statusCode: 200,
-        body: JSON.stringify(result),
+        body: JSON.stringify(pythonReturn.data),
       };
   
   };
