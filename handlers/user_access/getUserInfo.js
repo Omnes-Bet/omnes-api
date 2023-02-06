@@ -39,8 +39,8 @@ module.exports.handler = async function (event, models) {
     const userSubscription = await stripe.subscriptions.retrieve(
       getSubscription.subscriptionId
     );
-  
-    result.status = userSubscription.status;
+
+    result.subsInfo = userSubscription
     
   }
 
