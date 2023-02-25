@@ -25,7 +25,7 @@ module.exports.handler = async function (event, models) {
   };
 
   const subscriptionScope = {
-    where: { userId: getUser.id },
+    where: { userId: getUser.id, is_active: "1" },
   };
 
   const getSubscription = await subscriptions.findOne(subscriptionScope);
@@ -39,6 +39,22 @@ module.exports.handler = async function (event, models) {
     const userSubscription = await stripe.subscriptions.retrieve(
       getSubscription.subscriptionId
     );
+
+    if(userSubscription.status == "canceled"){
+
+      const set = (object, attr, value) => {
+        if (value)
+          object[attr] = value
+      }
+
+      const transaction = await subscriptions.sequelize.transaction();
+
+      set(getSubscription, 'is_active', "0");
+      await getSubscription.save({ transaction });
+
+      await transaction.commit();
+
+    }
 
     result.subsInfo = userSubscription
     

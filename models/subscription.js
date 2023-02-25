@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     planName: DataTypes.STRING,
     clientSecret: DataTypes.STRING,
     subscriptionId: DataTypes.STRING,
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    is_active: DataTypes.BOOLEAN
   }, 
   {
     timestamps: false

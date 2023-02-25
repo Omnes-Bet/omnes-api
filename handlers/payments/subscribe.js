@@ -52,7 +52,8 @@ module.exports.handler = async function (event, models) {
         planName: planName,
         clientSecret: subscription.latest_invoice.payment_intent.client_secret,
         subscriptionId: subscription.id,
-        userId: userId
+        userId: userId,
+        is_active: "1"
       },
       { subscriptionsChange }
     );
