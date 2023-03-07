@@ -22,6 +22,7 @@ module.exports.handler = async function (event, models) {
     name: getUser.name,
     email: getUser.email,
     phoneNumber: getUser.phone_number,
+    is_trial: getUser.is_trial
   };
 
   const subscriptionScope = {
