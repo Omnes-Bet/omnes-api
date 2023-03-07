@@ -7,7 +7,7 @@ const saltRounds = 10;
  */
 
 module.exports.handler = async function (event, models) {
-  const { name, phoneNumber, email, birthday, password, promoCode = "" } =
+  const { name, phoneNumber, email, birthday, password, promoCode } =
     JSON.parse(event.body) || {};
 
   const { users } = models;
