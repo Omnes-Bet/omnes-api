@@ -7,7 +7,7 @@ const saltRounds = 10;
  */
 
 module.exports.handler = async function (event, models) {
-  const { name, phoneNumber, email, birthday, password } =
+  const { name, phoneNumber, email, birthday, password, promoCode = "" } =
     JSON.parse(event.body) || {};
 
   const { users } = models;
@@ -42,6 +42,8 @@ module.exports.handler = async function (event, models) {
           phone_number: phoneNumber,
           email: email,
           birthday: birthday,
+          is_trial: 1,
+          promocode: promoCode,
           password: hash,
         },
         { userChange }
