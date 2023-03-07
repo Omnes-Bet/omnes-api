@@ -29,6 +29,28 @@ module.exports.handler = async function (event, models) {
     where: { userId: getUser.id, is_active: "1" },
   };
 
+  const set = (object, attr, value) => {
+    if (value)
+      object[attr] = value
+  }
+
+  function isMoreThan24HoursAgo(timestamp) {
+    const twentyFourHoursInMs = 24 * 60 * 60 * 1000; // Number of milliseconds in 24 hours
+    const currentTime = new Date().getTime(); // Current timestamp in milliseconds
+    return currentTime - timestamp > twentyFourHoursInMs;
+  }
+
+  if(isMoreThan24HoursAgo(getUser.created_at) && getUser.is_trial == 1) {
+
+    const transaction = await users.sequelize.transaction();
+
+    set(getUser, 'is_trial', "0");
+    await getUser.save({ transaction });
+
+    await transaction.commit();
+
+  }
+
   const getSubscription = await subscriptions.findOne(subscriptionScope);
 
   if(getSubscription){
@@ -42,11 +64,6 @@ module.exports.handler = async function (event, models) {
     );
 
     if(userSubscription.status == "canceled"){
-
-      const set = (object, attr, value) => {
-        if (value)
-          object[attr] = value
-      }
 
       const transaction = await subscriptions.sequelize.transaction();
 

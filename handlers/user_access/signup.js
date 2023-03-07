@@ -44,6 +44,7 @@ module.exports.handler = async function (event, models) {
           birthday: birthday,
           is_trial: 1,
           promocode: promoCode,
+          create_at: new Date().getTime(),
           password: hash,
         },
         { userChange }

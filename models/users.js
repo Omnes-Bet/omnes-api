@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     birthday: DataTypes.DATE,
     password: DataTypes.STRING,
     is_trial: DataTypes.BOOLEAN,
-    promocode: DataTypes.STRING
+    promocode: DataTypes.STRING,
+    created_at: DataTypes.STRING
   }, 
   {
     timestamps: false
