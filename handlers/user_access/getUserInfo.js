@@ -34,13 +34,14 @@ module.exports.handler = async function (event, models) {
       object[attr] = value
   }
 
-  function isMoreThan24HoursAgo(timestamp) {
-    const twentyFourHoursInMs = 24 * 60 * 60 * 1000; // Number of milliseconds in 24 hours
-    const currentTime = new Date().getTime(); // Current timestamp in milliseconds
-    return currentTime - timestamp > twentyFourHoursInMs;
-  }
-
-  if(isMoreThan24HoursAgo(getUser.created_at) && getUser.is_trial == 1) {
+  const isTimestampOlderThan24Hours = (timestamp) => {
+    const now = Date.now();
+    const oneDayInMillis = 1000 * 60 * 60 * 24;
+    const timeDifference = now - timestamp;
+    return timeDifference > oneDayInMillis;
+  };
+  
+  if(isTimestampOlderThan24Hours(getUser.created_at) && getUser.is_trial == 1) {
 
     const transaction = await users.sequelize.transaction();
 
